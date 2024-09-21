@@ -27,7 +27,7 @@ dotenv.config({
 
 
 
-
+// connecting database using  mongosse and uses eefi syntext
 /*
 import express from "express"
 const app = express() 
@@ -35,7 +35,7 @@ const app = express()
 ( async () => {
     try {
        await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-       app.on("error",() => {
+       app.on("error",() => {  // events 
         console.log('ERRR:', error);
         throw error
        })
