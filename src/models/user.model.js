@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
    
     username: {
         type: String,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         
         trim: true
     },
-    fullname: {
+    fulName: {
         type: String,
         required: true,
         index: true,
@@ -50,10 +50,10 @@ const userSchema = new mongoose.Schema({
 },{timestamps: true})
 
 //password save
-
+// pre hook used to do something before save
 userSchema.pre("save", async function (next) {
-    if( !this.isModified("password")) return next();
-    this.password = bcrypt.hash(this.password, 10)
+    if( !this.isModified("password")) return next();// it will check password is modified or not
+    this.password = bcrypt.hash(this.password, 10) // password modified
     next()
 } )
 
@@ -69,13 +69,13 @@ userSchema.methods.generateAccessToken = function(){
             _id: this._id,
             email: this.email,
             username: this.username,
-            fullname: this.fullname
+            fulName: this.fulName
      
         },
 
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: process.env.process.env.ACCESS_TOKEN_EXPIRY
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 
@@ -86,12 +86,15 @@ userSchema.methods.generateRefreshToken = function(
     jwt.sign(
         {
             _id: this._id,
+            email: this.email,
+            username: this.username,
+            fulName: this.fulName
            
         },
 
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: process.env.process.env.REFRESH_TOKEN_EXPIRY
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
     )
 }
