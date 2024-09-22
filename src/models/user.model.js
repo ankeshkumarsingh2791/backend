@@ -9,7 +9,7 @@ const userSchema = new Schema({
         required: true,
         unique: true,
         lowercase: true,
-        index: true,
+        index: true, // if you want to search in database it makes life easier
         trim: true
     },
     email: {
@@ -17,7 +17,6 @@ const userSchema = new Schema({
         required: true,
         unique: true,
         lowercase: true,
-        
         trim: true
     },
     fulName: {
@@ -27,7 +26,7 @@ const userSchema = new Schema({
         trim: true
     },
     avatar: {
-        type: String, // cloudinary url
+        type: String, // clouDinary url
         required: true
     },
     coverImage: {
@@ -64,7 +63,7 @@ userSchema.methods.isPasswordCorrect = async function(password){
 
 // jwt genrater
 userSchema.methods.generateAccessToken = function(){
-    jwt.sign(
+    return jwt.sign(
         {
             _id: this._id,
             email: this.email,
@@ -83,12 +82,10 @@ userSchema.methods.generateAccessToken = function(){
 userSchema.methods.generateRefreshToken = function(
     
 ){
-    jwt.sign(
+    // jwt is a beearer token 
+    return jwt.sign(
         {
-            _id: this._id,
-            email: this.email,
-            username: this.username,
-            fulName: this.fulName
+            _id: this._id
            
         },
 
