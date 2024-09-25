@@ -16,9 +16,14 @@ import { apiResponse } from "../utils/apiResponse.js";
   // now get user detail   
 
 
-const registerUser = asyncHandler (async (req,res) => {
+const registerUser = asyncHandler ( async (req,res) => {
+  
     const {fulName, email, username, password}  = req.body
     console.log("email:" , email)
+    console.log("fulName" , fulName)
+    console.log(username)
+
+
 
     // validate 
 
@@ -38,6 +43,7 @@ const registerUser = asyncHandler (async (req,res) => {
      if(existUser){
         throw new apiError(409, "user with email or username already exist")
      }
+    //  console.log(req.files)
      // file upload & handle 
 
      const avatarLocalPath =  req.files?. avatar[0]?.path;
