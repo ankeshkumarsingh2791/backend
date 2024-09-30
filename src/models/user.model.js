@@ -62,7 +62,7 @@ userSchema.methods.isPasswordCorrect = async function(password){
 }
 
 // jwt genrater
-userSchema.methods.generateAccessToken = function(){
+userSchema.methods.generateAccessToken = function(){  // short lived
     return jwt.sign(
         {
             _id: this._id,
@@ -79,7 +79,7 @@ userSchema.methods.generateAccessToken = function(){
     )
 
 }
-userSchema.methods.generateRefreshToken = function(
+userSchema.methods.generateRefreshToken = function(  // long lived
     
 ){
     // jwt is a beearer token 
