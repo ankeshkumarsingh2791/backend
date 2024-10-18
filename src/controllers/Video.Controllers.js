@@ -1,4 +1,4 @@
-import {assyncHandler} from "../utils/assyncHandler.js"
+import {asyncHandler} from "../utils/assyncHandler.js"
 import {apiError} from "../utils/apiError.js"
 import {apiResponse} from "../utils/apiResponse.js"
 import {Video} from "../models/video.model.js"
@@ -7,7 +7,7 @@ import jwt from " jsonwebtoken"
 import {uploadOnCloudinary, deleteInCloudinary} from "../utils/cloudinary.js"
 
 
-const publishVideo = assyncHandler(async(req, res) => {
+const publishVideo = asyncHandler(async(req, res) => {
     try{
 
     // get video, upload to cloudinary, create video
@@ -63,7 +63,7 @@ const publishVideo = assyncHandler(async(req, res) => {
        
 })
 
-const getAllVideo = assyncHandler(async(req, res) => {
+const getAllVideo = asyncHandler(async(req, res) => {
     //  get all video based on query , sort , pagination
     const{ query, sortBy, sortType, page=1, limit=10, userId} = req.query
 
@@ -119,7 +119,7 @@ const getAllVideo = assyncHandler(async(req, res) => {
     )
 })
 
-const getVideoById = assyncHandler(async(req, res) =>{
+const getVideoById = asyncHandler(async(req, res) =>{
     
     try {
     const {videoId} = req.params
@@ -142,7 +142,7 @@ const getVideoById = assyncHandler(async(req, res) =>{
     }
 })
 
-const updateVideo = assyncHandler(async(req, res) => {
+const updateVideo = asyncHandler(async(req, res) => {
     try {
         const {videId} = req.params
         if(!videId){
@@ -201,7 +201,7 @@ const updateVideo = assyncHandler(async(req, res) => {
     }
 })
 
-const deleteVideo = assyncHandler(async(req, res) => {
+const deleteVideo = asyncHandler(async(req, res) => {
     try {
         const {videoId} = req.params
 
@@ -236,7 +236,7 @@ const deleteVideo = assyncHandler(async(req, res) => {
 })
 
 
-const togglePublishStatus = assyncHandler(async (req, res) => {
+const togglePublishStatus = asyncHandler(async (req, res) => {
     const { videoId } = req.params
     const video = await Video.findById(videoId)
     if (!(video?.owner !== req.user?._id)) {
